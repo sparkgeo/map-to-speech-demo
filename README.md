@@ -5,13 +5,18 @@ An application showing map-to-speech method
 sequenceDiagram
     participant app
     participant api
-    participant OpenAI_API
+    participant OpenAI_API as OpenAI API
 
+    Note over app: Map to image
     app->>api: Request
     api->>OpenAI_API: Text Request
+    Note over OpenAI_API: Vision
     OpenAI_API-->>api: Response
-    api->>OpenAI_API: Audio Request (optional)
-    OpenAI_API-->>api: Response
+    opt
+        api->>OpenAI_API: Audio Request
+        Note over OpenAI_API: Text-to-speech
+        OpenAI_API-->>api: Response
+    end
     api-->>app: Response
 ```
 
